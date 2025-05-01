@@ -115,7 +115,10 @@ def get_send_size(boundary, prob):
         s = int(prob * b.shape[0])
         res.append(s)
         # TODO: ratio.append(1 if args.model == 'gat' else s / b.shape[0])
-        ratio.append(s / b.shape[0])
+        if b.shape[0] == 0:
+            ratio.append(0)
+        else:
+            ratio.append(s / b.shape[0])
     return res, ratio
 
 
