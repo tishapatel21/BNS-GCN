@@ -1,5 +1,5 @@
 #!/bin/bash
-module load pytorch/1.13.1
+# module load pytorch/1.13.1
 source venv/bin/activate
 
 NNODES=$SLURM_JOB_NUM_NODES
