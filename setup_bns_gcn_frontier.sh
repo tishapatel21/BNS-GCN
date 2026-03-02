@@ -4,7 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-WRKSPC=/$(pwd)
+WRKSPC=$(pwd)
 # everything will be installed in $WRKSPC
 
 ENV_NAME="venv"
@@ -19,13 +19,14 @@ module load cray-mpich
 module load miniforge3
 
 echo -e "${RED}Creating Python Environment in $WRKSPC:${GREEN}"
+rm -rf $WRKSPC/$ENV_NAME
 python -m venv $WRKSPC/$ENV_NAME
 source $WRKSPC/$ENV_NAME/bin/activate
 pip install --upgrade pip
 
-
 pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm5.7
 
-pip install -r requirements.txt
+
+pip install -r requirements.txt --no-deps
 
 python -c "import torch; print(torch.__version__, torch.version.hip, torch.cuda.is_available())"
