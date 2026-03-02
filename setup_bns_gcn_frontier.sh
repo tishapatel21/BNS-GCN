@@ -4,7 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-WRKSPC=$SCRATCH/BNS-GCN
+WRKSPC=/$(pwd)
 # everything will be installed in $WRKSPC
 
 ENV_NAME="venv"
