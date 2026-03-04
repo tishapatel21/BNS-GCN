@@ -29,4 +29,19 @@ pip install scipy
 
 pip install -r requirements.txt --no-deps
 
+if [! -d "dgl" ]; then
+    git clone https://github.com/dmlc/dgl.git
+fi
+
+cd dgl
+
+mkdir -p build
+cd build
+cmake .. -DUSE_CUDA=OFF -DUSE_ROCM=ON
+
+cd ../python
+pip install .
+
+cd $WRKSPC
+
 python -c "import torch; print(torch.__version__, torch.version.hip, torch.cuda.is_available())"

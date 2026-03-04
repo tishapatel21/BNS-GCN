@@ -3,4 +3,4 @@
 #torch==1.12.0+cu113
 ogb>=1.3.5
 #dgl-cu113
-dgl-amd
+
