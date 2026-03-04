@@ -29,7 +29,7 @@ pip install scipy
 
 pip install -r requirements.txt --no-deps
 
-if [! -d "dgl" ]; then
+if [ ! -d "dgl" ]; then
     git clone https://github.com/dmlc/dgl.git
 fi
 
@@ -38,6 +38,7 @@ cd dgl
 mkdir -p build
 cd build
 cmake .. -DUSE_CUDA=OFF -DUSE_ROCM=ON
+make
 
 cd ../python
 pip install .
