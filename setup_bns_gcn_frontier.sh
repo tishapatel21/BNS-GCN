@@ -30,7 +30,7 @@ pip install scipy
 pip install -r requirements.txt --no-deps
 
 if [ ! -d "dgl" ]; then
-    git clone https://github.com/dmlc/dgl.git
+    git clone --recursive https://github.com/dmlc/dgl.git
 fi
 
 cd dgl
