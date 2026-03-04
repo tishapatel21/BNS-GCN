@@ -25,7 +25,7 @@ source $WRKSPC/$ENV_NAME/bin/activate
 pip install --upgrade pip
 
 pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm5.7
-
+pip install scipy
 
 pip install -r requirements.txt --no-deps
 
