@@ -29,8 +29,8 @@ pip install scipy
 
 pip install -r requirements.txt --no-deps
 
-pip install https://pypi.amd.com/rocm-7.0.0/packages/amd-dgl/amd_dgl-2.4.0+amd0.torch2.8.0.rocm7.0.0.git64359f59.ubuntu24.4-cp312-cp312-linux_x86_64.whl
+pip install dgl
 
 cd $WRKSPC
 
-python -c "import torch; print(torch.__version__, torch.version.hip, torch.cuda.is_available())"
+python -c "import torch; import dgl; print(torch.__version__, torch.version.hip, torch.cuda.is_available(), dgl.version)"
