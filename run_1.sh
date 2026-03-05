@@ -43,7 +43,7 @@ export SCRIPT="python -u main.py \
   --port $MASTER_PORT \
   --fix-seed"
 
-run_cmd="srun -N 1 -n 1 -c 32 --cpu-bind=cores --gpus-per-node=4 ./runner.sh"
+run_cmd="srun -N 1 -n 1 -c 32 --cpu-bind=cores --gpus-per-node=4 env DGL_DISABLE_GRAPHBOLT=1 ./runner.sh"
 
 echo $run_cmd
 eval $run_cmd
