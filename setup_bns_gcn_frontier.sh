@@ -25,11 +25,15 @@ source $WRKSPC/$ENV_NAME/bin/activate
 pip install --upgrade pip
 
 pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm5.7
-pip install scipy
+
+pip install torchdata==0.7.0
+pip install pandas scikit-learn six outdated
+pip install ogb==1.3.6
+pip install scipy tqdm requests
 
 pip install -r requirements.txt --no-deps
 
-pip install dgl
+pip install dgl==2.1.0
 
 cd $WRKSPC
 
