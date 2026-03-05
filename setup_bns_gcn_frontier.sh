@@ -26,6 +26,7 @@ pip install --upgrade pip
 
 pip install "numpy<2"
 
+pip uninstall torch -y
 pip install torch==2.3.1+rocm5.7 torchvision==0.18.1+rocm5.7 --index-url https://download.pytorch.org/whl/rocm5.7
 
 pip install torchdata==0.7.0
