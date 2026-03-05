@@ -17,6 +17,7 @@ module load PrgEnv-amd
 module load rocm
 module load cray-mpich
 module load miniforge3
+module load cmake
 
 echo -e "${RED}Creating Python Environment in $WRKSPC:${GREEN}"
 rm -rf $WRKSPC/$ENV_NAME
@@ -38,7 +39,7 @@ cd dgl
 mkdir -p build
 cd build
 cmake .. -DUSE_CUDA=OFF -DUSE_ROCM=ON
-make
+make -j16
 
 cd ../python
 pip install .
