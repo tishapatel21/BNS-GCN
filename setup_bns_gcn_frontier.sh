@@ -39,4 +39,4 @@ pip install -r requirements.txt --no-deps
 
 cd $WRKSPC
 
-python -c "import torch; import dgl; print(torch.__version__, torch.version.hip, torch.cuda.is_available(), dgl.version)"
+python -c "import torch; import dgl; print(torch.__version__, torch.version.hip, torch.cuda.is_available())"
