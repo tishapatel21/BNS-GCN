@@ -1,5 +1,6 @@
 #!/bin/bash
 # module load pytorch/1.13.1
+export DGL_DISABLE_GRAPHBOLT=1
 source venv/bin/activate
 
 NNODES=$SLURM_JOB_NUM_NODES
@@ -10,8 +11,6 @@ GPUS=$(( NNODES * GPUS_PER_NODE ))
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=29500
 export WORLD_SIZE=${GPUS}
-
-export DGL_DISABLE_GRAPHBOLT=1
 
 ## nccl env vars to speedup stuff
 export CUDA_DEVICE_MAX_CONNECTIONS=1
