@@ -11,6 +11,8 @@ export MASTER_ADDR=$(hostname)
 export MASTER_PORT=29500
 export WORLD_SIZE=${GPUS}
 
+export DGL_DISABLE_GRAPHBOLT=1
+
 ## nccl env vars to speedup stuff
 export CUDA_DEVICE_MAX_CONNECTIONS=1
 export NCCL_NET_GDR_LEVEL=PHB
