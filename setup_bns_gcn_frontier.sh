@@ -17,7 +17,6 @@ module load PrgEnv-amd
 module load rocm
 module load cray-mpich
 module load miniforge3
-module load cmake
 
 echo -e "${RED}Creating Python Environment in $WRKSPC:${GREEN}"
 rm -rf $WRKSPC/$ENV_NAME
@@ -30,19 +29,9 @@ pip install scipy
 
 pip install -r requirements.txt --no-deps
 
-if [ ! -d "dgl" ]; then
-    git clone --recursive https://github.com/dmlc/dgl.git
-fi
+pip install https://pypi.amd.com/rocm-7.0.0/packages/amd-dgl/amd_dgl-2.4.0+amd0.torch2.8.0.rocm7.0.0.git64359f59.ubuntu24.4-cp312-cp312-linux_x86_64.whl
 
 cd dgl
-
-mkdir -p build
-cd build
-cmake .. -DUSE_CUDA=OFF -DUSE_ROCM=ON
-make -j16
-
-cd ../python
-pip install .
 
 cd $WRKSPC
 
