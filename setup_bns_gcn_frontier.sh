@@ -10,7 +10,6 @@ WRKSPC=$(pwd)
 ENV_NAME="venv"
 # this is the name of your python venv, change if needed
 
-export DGL_DISABLE_GRAPHBOLT=1
 
 cd $WRKSPC || exit 1
 
@@ -29,12 +28,11 @@ pip install --upgrade pip
 pip install "numpy<2"
 
 pip uninstall torch -y
-pip install torch==2.3.1+rocm5.7 torchvision==0.18.1+rocm5.7 --index-url https://download.pytorch.org/whl/rocm5.7
+pip install torch==2.3.1+rocm7.0 torchvision==0.18.1+rocm7.0 --index-url https://download.pytorch.org/whl/rocm7.0
 
 pip install torchdata==0.8.0
 pip install pandas>=1.5 scikit-learn>=1.2 six>=1.16 outdated>=0.2.2 tqdm requests scipy
 pip install ogb==1.3.6
-pip install dgl==2.1.0 --no-deps
 pip install pyyaml
 pip install pydantic
 pip install -r requirements.txt --no-deps
