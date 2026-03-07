@@ -6,6 +6,7 @@ import subprocess
 from helper.utils import *
 import train
 import warnings
+import torch
 
 if __name__ == '__main__':
 
@@ -51,7 +52,12 @@ if __name__ == '__main__':
         rank = int(os.getenv("SLURM_PROCID", 0))
         size = int(os.getenv("SLURM_NTASKS", 1))
         local_rank = int(os.getenv("SLURM_LOCALID", 0))
-        torch.cuda.set_device(local_rank)
+        #torch.cuda.set_device(local_rank)
+        if torch.version.hip is not None:
+            device = torch.device(f"cuda:{local_rank}")  # ROCm GPU
+        else:
+            device = torch.device("cpu")  # fallback
+        torch.cuda.set_device(device)
         train.init_processes(rank, size, args)
 
     elif args.backend == 'mpi':
