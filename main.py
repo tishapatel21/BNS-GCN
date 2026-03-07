@@ -53,12 +53,14 @@ if __name__ == '__main__':
         size = int(os.getenv("SLURM_NTASKS", 1))
         local_rank = int(os.getenv("SLURM_LOCALID", 0))
         #torch.cuda.set_device(local_rank)
-        if torch.version.hip is not None:
+        import torch
+
+        if torch.cuda.is_available() and torch.version.hip is not None:
             device = torch.device(f"cuda:{local_rank}")  # ROCm GPU
+            torch.cuda.set_device(device)
+            print("Using ROCm GPU:", torch.cuda.get_device_name(local_rank))
         else:
-            device = torch.device("cpu")  # fallback
-        torch.cuda.set_device(device)
-        train.init_processes(rank, size, args)
+            raise RuntimeError("No ROCm GPU detected — make sure modules are loaded and Python uses ROCm PyTorch")
 
     elif args.backend == 'mpi':
         gcn_arg = []
