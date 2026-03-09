@@ -38,7 +38,7 @@ export SCRIPT="python -u main.py \
   --log-every 10 \
   --inductive \
   --use-pp \
-  --backend gloo \
+  --backend nccl \
   --parts-per-node $GPUS_PER_NODE \
   --master-addr $MASTER_ADDR \
   --port $MASTER_PORT \
