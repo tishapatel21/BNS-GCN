@@ -74,5 +74,10 @@ if __name__ == '__main__':
         command = ['mpirun'] + mpi_arg + ['python', 'train.py'] + gcn_arg
         print(' '.join(command))
         subprocess.run(command, stderr=sys.stderr, stdout=sys.stdout)
+    elif args.backend == 'nccl':
+        local_rank = int(os.getenv("SLURM_LOCALID", 0)) 
+        device = torch.device(f"cuda:{local_rank}")
+        torch.cuda.set_device(device)
+        print("Using ROCm GPU:", torch.cuda.get_device_name(local_rank))
     else:
         raise ValueError
