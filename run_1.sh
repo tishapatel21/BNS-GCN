@@ -4,7 +4,7 @@ export DGL_DISABLE_GRAPHBOLT=1
 source venv/bin/activate
 
 NNODES=$SLURM_JOB_NUM_NODES
-GPUS_PER_NODE=4
+GPUS_PER_NODE=8
 GPUS=$(( NNODES * GPUS_PER_NODE ))
 
 ## master addr and port
@@ -15,7 +15,8 @@ export WORLD_SIZE=${GPUS}
 ## nccl env vars to speedup stuff
 export CUDA_DEVICE_MAX_CONNECTIONS=1
 export NCCL_NET_GDR_LEVEL=PHB
-export CUDA_VISIBLE_DEVICES=3,2,1,0
+#export CUDA_VISIBLE_DEVICES=3,2,1,0
+export HIP_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export NCCL_CROSS_NIC=1
 export NCCL_SOCKET_IFNAME=hsn
 export NCCL_NET="AWS Libfabric"
@@ -37,13 +38,13 @@ export SCRIPT="python -u main.py \
   --log-every 10 \
   --inductive \
   --use-pp \
-  --backend gloo \
+  --backend nccl \
   --parts-per-node $GPUS_PER_NODE \
   --master-addr $MASTER_ADDR \
   --port $MASTER_PORT \
   --fix-seed"
 
-run_cmd="srun -N 1 -n 1 -c 32 --cpu-bind=cores --gpus-per-node=4 env DGL_DISABLE_GRAPHBOLT=1 ./runner.sh"
+run_cmd="srun -N 1 -n 1 -c 32 --cpu-bind=cores --gpus-per-node=8 env ./runner.sh"
 
 echo $run_cmd
 eval $run_cmd
