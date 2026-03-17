@@ -1,14 +1,14 @@
 #!/bin/bash
 # module load pytorch/1.13.1
 export DGL_DISABLE_GRAPHBOLT=1
-source amd-env/bin/activate
+source amd_env/bin/activate
 
 NNODES=$SLURM_JOB_NUM_NODES
 GPUS_PER_NODE=8
 GPUS=$(( NNODES * GPUS_PER_NODE ))
 
 ## master addr and port
-export MASTER_ADDR=$(hostname -I | awk '{print $1}')
+export MASTER_ADDR=$(srun --ntasks=1 hostname --ip-address)
 export MASTER_PORT=29500
 export WORLD_SIZE=${GPUS}
 
@@ -21,6 +21,7 @@ export NCCL_CROSS_NIC=1
 export NCCL_SOCKET_IFNAME=hsn
 export GLOO_SOCKET_IFNAME=hsn
 export NCCL_SOCKET_FAMILY=AF_INET
+export GLOO_SOCKET_FAMILY=AF_INET
 export NCCL_NET="AWS Libfabric"
 
 export FI_CXI_RDZV_THRESHOLD=0 
