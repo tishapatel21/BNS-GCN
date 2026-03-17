@@ -79,5 +79,9 @@ if __name__ == '__main__':
         device = torch.device(f"cuda:{local_rank}")
         torch.cuda.set_device(device)
         print("Using ROCm GPU:", torch.cuda.get_device_name(local_rank))
+        rank = int(os.getenv("SLURM_PROCID", 0))
+        world_size = int(os.getenv("SLURM_NTASKS", 1))
+
+        train.init_processes(rank, world_size, args)
     else:
         raise ValueError
